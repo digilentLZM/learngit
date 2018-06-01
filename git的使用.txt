@@ -1,0 +1,143 @@
+git 的使用（分布式版本控制系统）DVCS
+一.git的首次配置
+
+1.设置用户名和电子邮件地址
+命令:
+git config --global user.name "your name"
+git congig --global user.email "your email"
+在某个项目中也可以不带global
+
+2.配置文本编辑器
+没有配置，会使用系统默认的文本编辑器
+
+git config --global core.editor emacs
+
+win X86
+git config --global core.editor "'path+.exe' -mutilInst -nosession"
+
+win x64
+git config --global core.editor "'path+ .exe' -mutilInst"
+
+3.查看个人设置
+git config --list
+git config user.name
+git congig user.email
+
+4.获取帮助。
+git help <verb>
+git <verb> help
+man git-<verb>
+
+example: git help config
+
+5.更该用户信息
+git config --global user.name "your name"
+git config --global user.email "email address"
+
+
+
+二.git的基本使用
+
+一.repository的初始化和文件状态的查看，添加文件，提交到git目录
+
+初始化仓库的两种方法
+1.初始化仓库(repository)
+git init (要切换到一个目录)
+
+git add filename(添加文件到暂存区，注意git中的文件有两种状态，一种是被追踪(tracked)的,一种是没有被追踪(untracked的)
+
+git commit -m 'some expression' 提交操作，''中为对本次提交的一些描述
+
+2.初始化也可以从远程仓库克隆一份
+
+git clone https://github.com/digilentLZM/learnCpp chain_table 克隆repository, 命名为chain_table
+
+未追踪的文件，即没有 git add filename
+以追踪的文件可分为,已修改，未修改，以暂存
+
+3.查看文件的状态。
+git status
+
+4.跟踪新文件
+git add filename
+
+5.暂存已修改的文件
+git add file name
+
+git add为添加内容到下一次提交中，提交只会提交已暂存的文件
+
+6.更简单的显示文件信息
+git status -s
+git status --short
+?? 未暂存
+
+7.可以配置 .gitignore 忽略某些文件，防止被添加到git目录
+
+8.提交到git目录，提交
+
+git commit -m 'some expression' 提交操作，''中为对本次提交的一些描述
+git commit
+git commit -v
+也可以跳过暂存区 git commit -a -m "some expression"
+
+
+
+二.对文件操作的补充。
+1.撤销对工作区文件的修改，也可以撤销暂存区的暂存，使其不被暂存。
+git checkout -- filename 对文件的任何修改将丢失，危险。
+git reset HEAD <file> 注意加参数--hard很危险
+
+
+2.查看已暂存和未暂存的变更，比git status更详细。
+git diff 输出补丁(patch),可以知道具体修改了那些东西，具体添加了哪些行，删除了哪些行。
+
+查看尚未添加到暂存区的变更 git diff 暂存区和工作区比较
+查看已暂存内容（会进入到下一次提交)
+如果暂存后修改，则工作区可以看到修改和暂存区看不见。
+
+3.移除文件
+将文件从暂存区移除，再次提交。
+git rm filename 可以做到 ，移除暂存区和工作目录。
+如果更改了某个文件，而且已暂存，可使用 git rm -f filename
+只从暂存区中移除，留在工作目录中，使用 git rm --cached filename
+
+4.移动文件
+重命名文件 git mv file_from file_to, 提交之前add 和rm
+
+5.查看提交历史
+git log (按时间顺序列出)
+git log -p(每次提交的不同)
+git log -2(最近的两次提交)
+git log -2 -p
+git log -stat 每次提交的简要统计信息
+git log --pretty=oneline (git log ==pretty=format)
+
+5.撤销操作
+有些不可逆
+git commit --amend 提交错误时可以再次提交
+example: git commit -m "some expression"
+git add forgotten file
+git commit -amend -m "some expression" 
+
+注意 git中进行了提交的任何变更几乎都可以恢复，未提交过的变更一旦丢失可能难以找回。
+
+
+
+三.对远程库的使用。
+1.显示远程库
+git remote 默认origin
+git remote -v 每个远程库的url
+
+2.添加远程库
+git remote add [shortname] [url]命令：
+这样后可以使用shortname 代替url
+
+3.从远程库拉取数据
+git fech [remote-name]
+
+
+
+
+
+
+
